@@ -3,43 +3,43 @@
     <div :class="{'has-logo':showLogo}" class="left-menu">
       <Logo v-if="showLogo" :collapse="isCollapse" />
     </div>
-    <!--  菜单栏开关  -->
-    <!--<hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />-->
+    <!-- 菜单栏开关 -->
+    <!-- <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" /> -->
     <!-- 左侧菜单点击 -->
-<!--    <Breadcrumb class="breadcrumb-container" />-->
+    <!-- <Breadcrumb class="breadcrumb-container" /> -->
     <div class="shou-menu">
       <router-link to="/">
         <a>{{ homePage }}</a>
       </router-link>
     </div>
     <div class="shou-menu">
-       <router-link to="/user">
+       <router-link to="/article">
          <a>{{ article }}</a>
        </router-link>
     </div>
     <div class="shou-menu">
-      <router-link :to="{ path: 'what'}">
-        <a >{{ questions }}</a>
+      <router-link :to="{ path: 'questions'}">
+        <a>{{ questions }}</a>
       </router-link>
     </div>
     <div class="shou-menu">
-      <router-link :to="{ path: 'what'}">
-        <a > 活动 </a>
+      <router-link :to="{ path: 'activity'}">
+        <a> {{ activity }} </a>
       </router-link>
     </div>
     <div class="shou-menu">
-      <router-link :to="{ path: 'what'}">
-        <a > 下载 </a>
+      <router-link :to="{ path: 'topic'}">
+        <a > {{ topic }} </a>
       </router-link>
     </div>
     <div class="shou-menu">
-      <router-link :to="{ path: 'what'}">
-        <a > 专题 </a>
+      <router-link :to="{ path: 'recruit'}">
+        <a > {{ recruit }} </a>
       </router-link>
     </div>
     <div class="shou-menu">
-      <router-link :to="{ path: 'what'}">
-        <a > VIP会员 </a>
+      <router-link :to="{ path: 'download'}">
+        <a > {{ download }} </a>
       </router-link>
     </div>
     <div class="input-menu">
@@ -98,7 +98,10 @@ export default {
       homePage: "首页",
       article: "文章",
       questions: "问答",
-
+      activity: "活动",
+      topic: "专题",
+      recruit: "招聘",
+      download: "下载"
     }
   },
   methods: {

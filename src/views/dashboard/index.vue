@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    margin: 40px;
   }
   &-text {
     font-weight:bold;

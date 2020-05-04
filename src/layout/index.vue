@@ -1,8 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device ==='mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <!--  左侧菜单栏  -->
-<!--    <Sidebar class="sidebar-container" />-->
+    <!-- 左侧菜单栏 -->
+    <!-- <Sidebar class="sidebar-container" />-->
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <!--  论坛 首页 文章  登录栏  -->

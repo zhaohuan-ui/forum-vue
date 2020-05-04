@@ -39,7 +39,7 @@ export default {
       listLoading: false,
       multipleSelection: [],
       exportLoading: false,
-      usernameStr: "我是郑永顺爸爸!"
+      usernameStr: "开始设计用户页吧!"
     }
   },
   created() {
