@@ -43,7 +43,7 @@
       </router-link>
     </div>
     <div class="input-menu">
-      <el-input placeholder="Vue如何学习?" class="input-with-select">
+      <el-input placeholder="Vue如何学习?" class="input-with-select" size="small">
         <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
     </div>
@@ -57,6 +57,11 @@
           <router-link to="/">
             <el-dropdown-item>
               首页
+            </el-dropdown-item>
+          </router-link>
+          <router-link to="/user">
+            <el-dropdown-item>
+              用户
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
@@ -111,19 +116,6 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-    },
-    pathCompile(path) {
-      const { params } = this.$route
-      var toPath = pathToRegexp.compile(path)
-      return toPath(params)
-    },
-    handleLink() {
-      // const { redirect, path } = item
-      // if (redirect) {
-      //   this.$router.push(redirect)
-      //   return
-      // }
-      this.$router.push(this.pathCompile('/user'))
     }
   }
 }
@@ -131,9 +123,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 60px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  height: 52px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -155,34 +147,38 @@ export default {
   .breadcrumb-container {
     float: left;
   }
+  /*  logo与左侧边栏  */
   .left-menu{
     margin-top: 0px;
     float: left;
     height: 100%;
     width: 160px;
     line-height: 50px;
-    margin-left: 180px;
+    margin-left: 120px;
   }
+  /* 文字大小 */
   .shou-menu{
     margin-top: 1px;
     float: left;
     height: 100%;
-    width: 80px;
+    width: 50px;
     line-height: 50px;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
   }
+  /* 搜索框设计 */
   .input-menu{
-    margin-left: 40px;
+    margin-left: 45px;
     float: left;
     height: 100%;
-    width: 380px;
+    width: 280px;
     line-height: 50px;
     text-align: center;
     font-size: 20px;
   }
+  /* 首页和退出登录设计 */
   .right-menu {
-    margin-right: 180px;
+    margin-right: 130px;
     float: right;
     height: 100%;
     line-height: 50px;

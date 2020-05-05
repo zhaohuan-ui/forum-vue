@@ -68,7 +68,7 @@ export default {
       color: #0084FF;
       font-weight: 600;
       line-height: 50px;
-      font-size: 30px;
+      font-size: 26px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }

@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import { getList } from '@/api/article/article'
+import { getList } from '@/api/recruit/recruit'
 
 export default {
-  name: 'Article',
+  name: 'Recruit',
   data() {
     return {
       list: [],
       multipleSelection: [],
-      usernameStr: "开始设计文章页吧!"
+      usernameStr: "开始设计招聘页吧!"
     }
   },
   created() {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     fetchList() {
-      this.$message.success('进入文章页!')
+      this.$message.success('进入招聘页!')
     }
   }
 }

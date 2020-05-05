@@ -1,28 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
-
 import Layout from '@/layout'
-
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
+Vue.use(Router)
 
 /**
  * 恒定的路线
@@ -33,12 +13,6 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true
-  },
-
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
     hidden: true
   },
   {
@@ -62,7 +36,6 @@ export const constantRoutes = [
       meta: { title: '用户', icon: 'form' }
     }]
   },
-  ,
   {
     path: '/',
     component: Layout,
@@ -72,17 +45,62 @@ export const constantRoutes = [
       component: () => import('@/views/article/index'),
       meta: { title: '文章', icon: 'form' }
     }]
-  }
-  ,
+  },
   {
     path: '/',
     component: Layout,
     children: [{
-      path: 'what',
-      name: 'What',
-      component: () => import('@/views/user/index'),
+      path: 'questions',
+      name: 'Questions',
+      component: () => import('@/views/questions/index'),
       meta: { title: '问答', icon: 'form' }
     }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'activity',
+      name: 'Activity',
+      component: () => import('@/views/activity/index'),
+      meta: { title: '活动', icon: 'form' }
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'topic',
+      name: 'Topic',
+      component: () => import('@/views/topic/index'),
+      meta: { title: '专题', icon: 'form' }
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'recruit',
+      name: 'Recruit',
+      component: () => import('@/views/recruit/index'),
+      meta: { title: '招聘', icon: 'form' }
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'download',
+      name: 'Download',
+      component: () => import('@/views/download/index'),
+      meta: { title: '下载', icon: 'form' }
+    }]
+  },
+
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
@@ -100,5 +118,5 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // 重置路由器
 }
-
+/* 设置默认页面 */
 export default router
