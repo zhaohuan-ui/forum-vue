@@ -61,7 +61,7 @@
           </router-link>
           <router-link to="/user">
             <el-dropdown-item>
-              用户
+              用户信息
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
