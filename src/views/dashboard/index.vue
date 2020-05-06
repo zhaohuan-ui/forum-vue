@@ -172,7 +172,7 @@
 
     <!--  论坛首页结束  -->
     <div style="margin-top: 20px;margin-left: 385px; font-size: 12px" >
-      <el-link disabled>论坛·应用·工作·联系我们 @ 2020论坛</el-link>
+      论坛·应用·工作·联系我们 @ 2020 论坛
     </div>
   </div>
 </template>

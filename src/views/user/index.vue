@@ -1,8 +1,7 @@
 <template>
+  <!-- 在此div下设计页面 -->
   <div class="dashboard-container">
-    <div class="dashboard-text">
-      {{ usernameStr }}
-    </div>
+    {{ usernameStr }}
   </div>
 </template>
 
@@ -29,6 +28,7 @@ export default {
   },
   data() {
     return {
+      user:{},
       settings: settings,
       listQuery: {
         page: 1,
@@ -43,7 +43,7 @@ export default {
     }
   },
   created() {
-    //this.fetchList()
+    // this.fetchList()
   },
   methods: {
     fetchList() {
@@ -87,15 +87,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .dashboard {
-    &-container {
-       margin: 30px;
-     }
-    &-text {
-       font-weight:bold;
-       margin-left: 180px;
-       font-size: 30px;
-       line-height: 46px;
-     }
+.dashboard {
+  &-container {
+    margin: 20px;
+    font-weight:bold;
+    margin-left: 157px;
+    margin-right: 145px;
+    font-size: 30px;
+    line-height: 46px;
   }
+}
 </style>
