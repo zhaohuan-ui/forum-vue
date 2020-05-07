@@ -33,7 +33,17 @@ export const constantRoutes = [
       path: 'user',
       name: 'User',
       component: () => import('@/views/user/index'),
-      meta: { title: '用户', icon: 'form' }
+      meta: { title: '个人主页', icon: 'form' }
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'edit',
+      name: 'Edit',
+      component: () => import('@/views/user/edit'),
+      meta: { title: '个人编辑', icon: 'form' }
     }]
   },
   {
