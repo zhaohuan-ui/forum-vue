@@ -67,7 +67,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {getUser, updateUser} from '@/api/user'
+import {getUser, updateUser} from '@/api/user/user'
 import Pagination from '@/components/Pagination'
 import settings from '@/settings'
 import waves from '@/directive/waves'

@@ -10,7 +10,7 @@
             <img :src="user_one" class="img_tx">
           </el-col>
           <el-col :span="11" style="padding-top: 45px">
-            <span style="font-size: 22px;">{{ nikeName }}</span>
+            <span style="font-size: 22px;">{{ nickName }}</span>
             <div style="padding-top: 10px; font-size: 12px; font-weight:normal;">
               <i class="el-icon-arrow-down"></i>
               查看详细资料
@@ -193,8 +193,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {getList, exportExcel} from '@/api/myuser'
-import {seq} from '@/utils/seq'
+import {getUser} from '@/api/user/user'
 import Pagination from '@/components/Pagination'
 import settings from '@/settings'
 import waves from '@/directive/waves'
@@ -231,31 +230,36 @@ export default {
       settings: settings,
       list: [],
       total: 0,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        searchData: {}
+      },
       listLoading: false,
       multipleSelection: [],
       exportLoading: false,
-      nikeName: "你丫闭嘴",
+      nickName: '',
+      ids: [0,1]
     }
   },
   created() {
-    // this.fetchList()
+    this.fetchList()
   },
   methods: {
     fetchList() {
-      this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.list = seq(response.data.list, response.data.page, response.data.limit)
-        this.total = response.data.total
-        this.listQuery.page = response.data.page
-        this.listQuery.limit = response.data.limit
-        this.listLoading = false
-      }).catch(error => {
-        this.$message.error(error.message)
+      getUser(this.name).then(response =>{
+        this.nickName = response.data.nickName
       })
     },
     onSelectionChange(val) {
       this.multipleSelection = val
-    }
+    },
+    /**
+     * 下载Excel示例
+     */
+    /*onDownload(){
+      window.location.href = process.env.VUE_APP_BASE_API + '/user/export';
+    }*/
   }
 }
 </script>
