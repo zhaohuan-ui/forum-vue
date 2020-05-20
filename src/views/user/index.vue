@@ -266,7 +266,7 @@ export default {
 <style lang="scss" scoped>
   .dashboard {
     &-container {
-      margin: 20px;
+      margin: 12px;
       font-weight: bold;
       margin-left: 157px;
       margin-right: 145px;

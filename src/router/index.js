@@ -66,6 +66,17 @@ export const constantRoutes = [
       meta: { title: '问答', icon: 'form' }
     }]
   },
+  ,
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'comment',
+      name: 'Comment',
+      component: () => import('@/views/questions/comment'),
+      meta: { title: '评论', icon: 'form' }
+    }]
+  },
   {
     path: '/',
     component: Layout,
