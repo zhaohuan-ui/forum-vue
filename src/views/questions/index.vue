@@ -142,7 +142,7 @@
           <el-card class="box-card" style="margin-left: 7px">
             <div v-for="row in list" :key="row.index" >
               <div>
-                <a @click="updatePageView(row,1)">
+                <a @click="updatePageView(row,1),to_Comment(row,0)">
                   <div style="margin-top: -10px">
                     <span style="font-size: 15px;">
                       {{ row.questionName }}
@@ -152,7 +152,7 @@
                 <div>
                   <el-row>
                     <el-col :span="4">
-                      <el-button @click="to_Comment(row)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
+                      <el-button @click="to_Comment(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
                     </el-col>
                     <el-col :span="4" style="font-size: 14px; font-weight:normal;color: #99a9bf; text-align:center;">
                       <a v-if="row.attentionNumber == 0" @click="createAttention(row)">
@@ -245,7 +245,7 @@
         <el-table-column property="questionName" label="问答名称" width="400" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button @click="to_Comment(scope.row)" type="text" size="small">写回答</el-button>
+            <el-button @click="to_Comment(scope.row,1)" type="text" size="small">写回答</el-button>
             <el-button @click="deleteLater(scope.row)" type="text" size="small">移除</el-button>
           </template>
         </el-table-column>
@@ -321,8 +321,8 @@ export default {
 
       })
     },
-    to_Comment(row){
-      let router = this.$router.resolve({ path: '/comment', query: {id: row.id}});
+    to_Comment(row,answerStatus){
+      let router = this.$router.resolve({ path: '/comment', query: {id: row.id, answerStatus: answerStatus}});
       window.open(router.href,'_blank')
     },
     to_User(){
