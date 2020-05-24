@@ -152,7 +152,7 @@
                 <div>
                   <el-row>
                     <el-col :span="4">
-                      <el-button @click="to_Comment(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
+                      <el-button @click="updatePageView(row,1),to_Comment(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
                     </el-col>
                     <el-col :span="4" style="font-size: 14px; font-weight:normal;color: #99a9bf; text-align:center;">
                       <a v-if="row.attentionNumber == 0" @click="createAttention(row)">
