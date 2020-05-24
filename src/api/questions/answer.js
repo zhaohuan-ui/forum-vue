@@ -7,3 +7,12 @@ export function getList(questionId) {
     params: { questionId }
   })
 }
+
+export function createAnswer(data, querstionId, commentId,token) {
+  return request({
+    url: '/answer/createAnswer',
+    method: 'post',
+    data: data,
+    params: { querstionId, commentId, token }
+  })
+}

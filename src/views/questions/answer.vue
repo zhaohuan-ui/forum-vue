@@ -89,7 +89,7 @@
               </el-input>
               <div slot="footer" class="dialog-footer" style="float: right">
                 <el-button type="info" @click="answerStatus = 0" size="mini" plain>收起回答</el-button>
-                <el-button type="primary" @click="create(0)" size="mini" plain>提交回答</el-button>
+                <el-button type="primary" @click="createAnswer(0)" size="mini" plain>提交回答</el-button>
               </div>
             </div>
           </el-card>
@@ -103,7 +103,7 @@
                 </span>
               </a>
             </div>
-            <div v-for="row in list" :key="row" class="text item">
+            <div v-for="row in list" :key="row.index" class="text item">
               <div>
                 <el-row>
                   <el-col :span="2" style="height: 50px">
@@ -116,7 +116,7 @@
               </div>
               <div style="margin-top: -5px;">
                 <span style="font-size: 14px; font-weight:normal;margin-left: -53px">
-                 不原谅。又不是所有人都像小说女主一样什么都能原谅。别人伤害自己如果那个人不做什么来弥补，就绝对不原谅。
+                  {{ row.answerName }}
                 </span>
               </div>
               <div style="font-size: 14px; font-weight:normal;color: #99a9bf;">
@@ -181,11 +181,15 @@
 </template>
 
 <script>
-import { getList } from '@/api/questions/answer'
+import {mapGetters} from 'vuex'
+import {
+  getList, createAnswer
+} from '@/api/questions/answer'
 import user_one from '@/assets/dashboard/user_one.jpg'
 
 export default {
   name: 'Comment',
+  computed: {...mapGetters(['name'])},
   data() {
     return {
       list: [],
@@ -211,6 +215,14 @@ export default {
         this.attentionNumber = response.data.attentionNumber
         this.volumeNumber = response.data.volumeNumber
         this.answerNumber = response.data.answerNumber
+      })
+    },
+    createAnswer(commentId){
+      let querstionId = this.$route.query.id;
+      createAnswer(this.AnswerVO, querstionId, commentId, this.name).then(response => {
+          this.answerStatus = 0
+          this.AnswerVO = {}
+          this.fetchList()
       })
     }
   }
