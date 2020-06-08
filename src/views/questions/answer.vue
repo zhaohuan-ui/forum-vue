@@ -195,7 +195,7 @@ export default {
       list: [],
       multipleSelection: [],
       user_one: user_one,
-      answerStatus: 0,
+      answerStatus: this.$route.query.answerStatus,
       attentionNumber: 0,
       volumeNumber: 0,
       answerNumber: 0,
@@ -209,7 +209,6 @@ export default {
   methods: {
     fetchList() {
       let id = this.$route.query.id;
-      this.answerStatus = this.$route.query.answerStatus;
       getList(id).then(response => {
         this.list = response.data.answers
         this.attentionNumber = response.data.attentionNumber
@@ -220,9 +219,9 @@ export default {
     createAnswer(commentId){
       let querstionId = this.$route.query.id;
       createAnswer(this.AnswerVO, querstionId, commentId, this.name).then(response => {
-          this.answerStatus = 0
-          this.AnswerVO = {}
-          this.fetchList()
+        this.answerStatus = 0
+        this.AnswerVO = {}
+        this.fetchList()
       })
     }
   }

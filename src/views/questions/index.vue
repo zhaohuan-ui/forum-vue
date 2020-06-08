@@ -313,6 +313,7 @@ export default {
             type: response.code==200 ? "success" : "error"
           })
         }else{
+          this.drafts()
           this.$message({
             message: "稍后发布",
             type: response.code==200 ? "success" : "error"
