@@ -155,22 +155,22 @@
                       <el-button @click="updatePageView(row,1),to_Comment(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
                     </el-col>
                     <el-col :span="4" style="font-size: 14px; font-weight:normal;color: #99a9bf; text-align:center;">
-                      <a v-if="row.attentionNumber == 0" @click="createAttention(row)">
+                      <a v-if="row.attentionStatus == 0" @click="createAttention(row)">
                         <i class="el-icon-plus"></i>
                         关注问题
                       </a>
-                      <a v-if="row.attentionNumber == 1" @click="deleteAttention(row)">
+                      <a v-if="row.attentionStatus == 1" @click="deleteAttention(row)">
                         <i class="el-icon-circle-check"></i>
                         已关注
                       </a>
                     </el-col>
                     <el-col :span="4" style="font-size: 14px; font-weight:normal;color: #99a9bf;margin-left: 10px;">
                       <span>
-                        <a v-if="row.laterNumber == 0" @click="createLater(row)">
+                        <a v-if="row.laterStatus == 0" @click="createLater(row)">
                           <i class="el-icon-refresh-left"></i>
                           稍后答
                         </a>
-                        <a v-if="row.laterNumber == 1" @click="deleteLater(row)">
+                        <a v-if="row.laterStatus == 1" @click="deleteLater(row)">
                           <i class="el-icon-circle-check"></i>
                           已添加
                         </a>
@@ -290,7 +290,7 @@ export default {
   },
   methods: {
     fetchList() {
-      getList(this.name).then(response => {
+      getList().then(response => {
         this.list = response.data
       })
     },
@@ -303,7 +303,7 @@ export default {
     },
     create(status){
       this.questionVO.publishStatus = status
-      create(this.questionVO,this.name).then(response => {
+      create(this.questionVO).then(response => {
         this.createDialogVisible = false
         this.questionVO = {}
         if(status == 0){
@@ -351,24 +351,24 @@ export default {
       })
     },
     drafts(){
-      drafts(this.name).then(response=>{
+      drafts().then(response=>{
         this.draftsList = response.data
       })
     },
     later(){
-      later(this.name).then(response=>{
+      later().then(response=>{
         this.laterList = response.data
       })
     },
     createLater(row){
-      createLater(row,this.name).then(response => {
-        row.laterNumber = 1
+      createLater(row).then(response => {
+        row.laterStatus = 1
         this.later()
       })
     },
     deleteLater(row){
-      deleteLater(row,this.name).then(response => {
-        row.laterNumber = 0
+      deleteLater(row).then(response => {
+        row.laterStatus = 0
         this.later()
         if(this.laterList.length == 1){
           this.laterDialogVisible = false
@@ -377,19 +377,19 @@ export default {
       })
     },
     attention(){
-      attention(this.name).then(response=>{
+      attention().then(response=>{
         this.attentionList = response.data
       })
     },
     createAttention(row){
-      createAttention(row,this.name).then(response => {
-        row.attentionNumber = 1
+      createAttention(row).then(response => {
+        row.attentionStatus = 1
         this.attention()
       })
     },
     deleteAttention(row){
-      deleteAttention(row,this.name).then(response => {
-        row.attentionNumber = 0
+      deleteAttention(row).then(response => {
+        row.attentionStatus = 0
         this.attention()
         this.fetchList()
       })

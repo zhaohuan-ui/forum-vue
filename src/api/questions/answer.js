@@ -8,11 +8,11 @@ export function getList(questionId) {
   })
 }
 
-export function createAnswer(data, querstionId, commentId,token) {
+export function createAnswer(data, questionId, commentId) {
   return request({
     url: '/answer/createAnswer',
     method: 'post',
     data: data,
-    params: { querstionId, commentId, token }
+    params: { questionId, commentId }
   })
 }

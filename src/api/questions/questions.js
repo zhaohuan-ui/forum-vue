@@ -1,19 +1,17 @@
 import request from '@/utils/request'
 
-export function getList(token) {
+export function getList() {
   return request({
     url: '/question/getList',
-    method: 'post',
-    params: { token }
+    method: 'post'
   })
 }
 
-export function create(data,token) {
+export function create(data) {
   return request({
     url: '/question/create',
     method: 'post',
-    data: data,
-    params: { token }
+    data: data
   })
 }
 
@@ -33,62 +31,55 @@ export function deleteStatus(data) {
   })
 }
 
-export function drafts(token) {
+export function drafts() {
   return request({
     url: '/question/drafts',
-    method: 'post',
-    params: { token }
+    method: 'post'
   })
 }
 
-export function later(token) {
+export function later() {
   return request({
     url: '/question/later',
-    method: 'post',
-    params: { token }
+    method: 'post'
   })
 }
 
-export function createLater(data,token) {
+export function createLater(data) {
   return request({
     url: '/question/createLater',
     method: 'post',
-    data: data,
-    params: { token }
+    data: data
   })
 }
 
-export function deleteLater(data,token) {
+export function deleteLater(data) {
   return request({
     url: '/question/deleteLater',
     method: 'delete',
-    data: data,
-    params: { token }
+    data: data
   })
 }
 
-export function attention(token) {
+export function attention() {
   return request({
     url: '/question/attention',
-    method: 'post',
-    params: { token }
+    method: 'post'
   })
 }
 
-export function createAttention(data,token) {
+export function createAttention(data) {
   return request({
     url: '/question/createAttention',
     method: 'post',
-    data: data,
-    params: { token }
+    data: data
   })
 }
 
-export function deleteAttention(data,token) {
+export function deleteAttention(data) {
   return request({
     url: '/question/deleteAttention',
     method: 'delete',
-    data: data,
-    params: { token }
+    data: data
   })
 }
