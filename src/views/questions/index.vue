@@ -20,7 +20,7 @@
                   <div style="padding-left: 8px">
                     <el-button type="warning" icon="el-icon-reading" circle plain></el-button>
                   </div>
-                  <div style="margin-left: 9px; font-size: 12px; font-weight:normal;">
+                  <div style="margin-left: 11px; font-size: 12px; font-weight:normal;">
                     写文章
                   </div>
                 </el-col>
@@ -28,7 +28,7 @@
                   <div style="padding-left: 12px">
                     <el-button type="success" icon="el-icon-connection" size="" circle plain></el-button>
                   </div>
-                  <div style="margin-left: 12px; font-size: 12px; font-weight:normal;">
+                  <div style="margin-left: 14px; font-size: 12px; font-weight:normal;">
                     写想法
                   </div>
                 </el-col>
@@ -36,8 +36,8 @@
                   <div style="padding-left: 14px">
                     <el-button type="danger" icon="el-icon-document-copy" size="" circle plain></el-button>
                   </div>
-                  <div style="margin-left: 11px; font-size: 12px; font-weight:normal;">
-                    回答问题
+                  <div style="margin-left: 15px; font-size: 12px; font-weight:normal;">
+                    写活动
                   </div>
                 </el-col>
               </el-row>
@@ -142,7 +142,7 @@
           <el-card class="box-card" style="margin-left: 7px">
             <div v-for="row in list" :key="row.index" >
               <div>
-                <a @click="updatePageView(row,1),to_Comment(row,0)">
+                <a @click="updatePageView(row,1),to_Answer(row,0)">
                   <div style="margin-top: -10px">
                     <span style="font-size: 15px;">
                       {{ row.questionName }}
@@ -152,7 +152,9 @@
                 <div>
                   <el-row>
                     <el-col :span="4">
-                      <el-button @click="updatePageView(row,1),to_Comment(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>写回答</el-button>
+                      <el-button @click="updatePageView(row,1),to_Answer(row,1)" type="primary" icon="el-icon-edit" size="mini" plain>
+                        写回答
+                      </el-button>
                     </el-col>
                     <el-col :span="4" style="font-size: 14px; font-weight:normal;color: #99a9bf; text-align:center;">
                       <a v-if="row.attentionStatus == 0" @click="createAttention(row)">
@@ -245,7 +247,7 @@
         <el-table-column property="questionName" label="问答名称" width="400" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button @click="to_Comment(scope.row,1)" type="text" size="small">写回答</el-button>
+            <el-button @click="to_Answer(scope.row,1)" type="text" size="small">写回答</el-button>
             <el-button @click="deleteLater(scope.row)" type="text" size="small">移除</el-button>
           </template>
         </el-table-column>
@@ -322,8 +324,8 @@ export default {
 
       })
     },
-    to_Comment(row,answerStatus){
-      let router = this.$router.resolve({ path: '/comment', query: {id: row.id, answerStatus: answerStatus}});
+    to_Answer(row,answerStatus){
+      let router = this.$router.resolve({ path: '/answer', query: {id: row.id, answerStatus: answerStatus}});
       window.open(router.href,'_blank')
     },
     to_User(){

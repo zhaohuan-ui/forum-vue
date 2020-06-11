@@ -8,10 +8,16 @@
         <el-row>
           <el-col :span="17">
             <div style="font-size: 22px;">
-              如果可以对以前的自己说一句话，你会和她（他）说什么？
+              {{ QuestionDO.questionName }}
             </div>
             <div style="margin-top: 12px; color: #99a9bf;">
-              <el-button type="primary" size="medium">关注问题</el-button>
+              <span v-if="QuestionDO.attentionStatus == 0" @click="createAttention(QuestionDO)">
+                <el-button type="primary" size="medium">关注问题</el-button>
+              </span>
+              <span v-if="QuestionDO.attentionStatus == 1" @click="deleteAttention(QuestionDO)">
+                <el-button type="info" size="medium">已关注</el-button>
+              </span>
+
               <span style="margin-left: 12px">
                 <el-button @click="answerStatus = 1" type="primary" icon="el-icon-edit" size="medium" plain>写回答</el-button>
               </span>
@@ -120,7 +126,7 @@
                 </span>
               </div>
               <div style="font-size: 14px; font-weight:normal;color: #99a9bf;">
-                  发布于 2020-02-02
+                  发布于 {{ row.createTime.substring(0,10) }}
               </div>
               <div style="color: #99a9bf;">
                 <el-button type="primary" icon="el-icon-caret-top" size="mini" plain>赞同 10</el-button>
@@ -185,10 +191,11 @@ import {mapGetters} from 'vuex'
 import {
   getList, createAnswer
 } from '@/api/questions/answer'
+import { createAttention, deleteAttention } from '@/api/questions/questions'
 import user_one from '@/assets/dashboard/user_one.jpg'
 
 export default {
-  name: 'Comment',
+  name: 'Answer',
   computed: {...mapGetters(['name'])},
   data() {
     return {
@@ -200,16 +207,19 @@ export default {
       attentionNumber: 0,
       volumeNumber: 0,
       answerNumber: 0,
-      AnswerVO:{}
+      AnswerVO:{},
+      QuestionDO: {}
     }
   },
   created() {
+    console.log('id',this.$route.query.id)
     /* 调用起始方法 */
     this.fetchList()
   },
   methods: {
     fetchList() {
       getList(this.questionId).then(response => {
+        this.QuestionDO = response.data.questionDO
         this.list = response.data.answers
         this.answerNumber = this.list.length
         this.volumeNumber = response.data.volumeNumber
@@ -221,6 +231,16 @@ export default {
         this.answerStatus = 0
         this.AnswerVO = {}
         this.fetchList()
+      })
+    },
+    createAttention(DO){
+      createAttention(DO).then(response => {
+        this.QuestionDO.attentionStatus = 1
+      })
+    },
+    deleteAttention(DO){
+      deleteAttention(DO).then(response => {
+        this.QuestionDO.attentionStatus = 0
       })
     }
   }
