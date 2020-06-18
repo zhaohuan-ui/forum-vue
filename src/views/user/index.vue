@@ -7,10 +7,10 @@
       <div class="sty-user">
         <el-row style="margin-top: -50px">
           <el-col :span="5">
-            <img :src="user_one" class="img_tx">
+            <img :src="UserDO.imgUrl" class="img_tx">
           </el-col>
           <el-col :span="11" style="padding-top: 45px">
-            <span style="font-size: 22px;">{{ nickName }}</span>
+            <span style="font-size: 22px;">{{ UserDO.nickName }}</span>
             <div style="padding-top: 10px; font-size: 12px; font-weight:normal;">
               <i class="el-icon-arrow-down"></i>
               查看详细资料
@@ -238,7 +238,7 @@ export default {
       listLoading: false,
       multipleSelection: [],
       exportLoading: false,
-      nickName: '',
+      UserDO: {},
       ids: [0,1]
     }
   },
@@ -248,7 +248,7 @@ export default {
   methods: {
     fetchList() {
       getUser(this.name).then(response =>{
-        this.nickName = response.data.nickName
+        this.UserDO = response.data
       })
     },
     onSelectionChange(val) {

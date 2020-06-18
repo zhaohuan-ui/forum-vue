@@ -204,6 +204,9 @@
                 <el-divider></el-divider>
               </div>
             </div>
+            <div style="margin-top: 0px;margin-left: 258px;">
+              <el-button type="info" round @click="pageUtils()">查看更多问题</el-button>
+            </div>
           </el-card>
         </el-col>
       </el-row>
@@ -270,6 +273,10 @@ export default {
   computed: {...mapGetters(['name'])},
   data() {
     return {
+      page: {
+        current: 1,
+        size: 8
+      },
       questionVO: {},
       list: [],
       draftsList: [],
@@ -292,9 +299,13 @@ export default {
   },
   methods: {
     fetchList() {
-      getList().then(response => {
+      getList(this.page).then(response => {
         this.list = response.data
       })
+    },
+    pageUtils(){
+      this.page.size += 8
+      this.fetchList()
     },
     updatePageView(row,value) {
       this.pageView = row.volumeNumber

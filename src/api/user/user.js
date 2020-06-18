@@ -8,11 +8,10 @@ export function updateUser(data) {
   })
 }
 
-export function getUser(username) {
+export function getUser() {
   return request({
     url: '/user/getUser',
-    method: 'get',
-    params: { username }
+    method: 'get'
   })
 }
 

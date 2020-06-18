@@ -76,23 +76,15 @@
             <div slot="header" style="height: 30px;margin-top: 0px">
               <el-row>
                 <el-col :span="2">
-                  <img :src="user_one" class="img_tx">
+                  <img :src="UserDO.imgUrl" class="img_tx">
                 </el-col>
                 <el-col :span="20" style="margin-top: -8px;margin-left: 10px;">
-                  <span >你丫闭嘴</span>
+                  <span >{{UserDO.nickName}}</span>
                 </el-col>
               </el-row>
             </div>
-            <div>
-              <el-input
-                type="textarea"
-                placeholder="请输入问题"
-                :autosize="{ minRows: 10, maxRows: 20}"
-                v-model="AnswerVO.answerName"
-                maxlength="300"
-                show-word-limit
-              >
-              </el-input>
+            <div style="font-size: 14px; font-weight:normal;" >
+              <vue-editor v-model="AnswerVO.answerName" placeholder="写回答..." :editorToolbar="customToolbar"/>
               <div slot="footer" class="dialog-footer" style="float: right">
                 <el-button type="info" @click="answerStatus = 0" size="mini" plain>收起回答</el-button>
                 <el-button type="primary" @click="createAnswer(0)" size="mini" plain>提交回答</el-button>
@@ -113,7 +105,7 @@
               <div>
                 <el-row>
                   <el-col :span="2" style="height: 50px">
-                    <img :src="user_one" class="img_tx">
+                      <img :src="row.imgUrl" class="img_tx">
                   </el-col>
                   <el-col :span="20" style="margin-top: -8px;margin-left: 10px;">
                     <span >{{ row.nickName }}</span>
@@ -121,9 +113,7 @@
                 </el-row>
               </div>
               <div style="margin-top: -5px;">
-                <span style="font-size: 14px; font-weight:normal;margin-left: -53px">
-                  {{ row.answerName }}
-                </span>
+                <span style="font-size: 14px; font-weight:normal;" v-html="row.answerName"/>
               </div>
               <div style="font-size: 14px; font-weight:normal;color: #99a9bf;">
                   发布于 {{ row.createTime.substring(0,10) }}
@@ -192,23 +182,42 @@ import {
   getList, createAnswer
 } from '@/api/questions/answer'
 import { createAttention, deleteAttention } from '@/api/questions/questions'
-import user_one from '@/assets/dashboard/user_one.jpg'
+import { VueEditor } from 'vue2-editor'
 
 export default {
   name: 'Answer',
+  components: { VueEditor },
   computed: {...mapGetters(['name'])},
   data() {
     return {
       list: [],
       multipleSelection: [],
-      user_one: user_one,
       questionId: this.$route.query.id,
       answerStatus: this.$route.query.answerStatus,
       attentionNumber: 0,
       volumeNumber: 0,
       answerNumber: 0,
       AnswerVO:{},
-      QuestionDO: {}
+      QuestionDO: {},
+      // 富文本框：自定义工具栏
+      customToolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{'header': 2}],
+        [{'script': 'sub'}, {'script': 'super'}],
+        ['link', 'image', 'video'],
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        [{'clean':'清除格式'}],
+        /*[{'color': []}, {'background': []}],
+        [{'indent': '-1'}, {'indent': '+1'}],
+        [{'direction': 'rtl'}],
+        [{'size': ['small', false, 'large', 'huge']}],
+        [{'header': [1, 2, 3, 4, 5, 6, false]}],
+        [{'font': []}],
+        [{'align': []}],
+        ['sourceEditor']*/
+      ],
+      UserDO: {}
     }
   },
   created() {
@@ -221,9 +230,11 @@ export default {
       getList(this.questionId).then(response => {
         this.QuestionDO = response.data.questionDO
         this.list = response.data.answers
+        console.log('list',this.list)
         this.answerNumber = this.list.length
         this.volumeNumber = response.data.volumeNumber
         this.attentionNumber = response.data.attentionNumber
+        this.UserDO = response.data.userDO
       })
     },
     createAnswer(commentId){
