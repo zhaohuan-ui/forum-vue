@@ -107,7 +107,7 @@
                   <el-col :span="2" style="height: 50px">
                       <img :src="row.imgUrl" class="img_tx">
                   </el-col>
-                  <el-col :span="20" style="margin-top: -8px;margin-left: 10px;">
+                  <el-col :span="20" style="margin-top: -8px;margin-left: 20px;">
                     <span >{{ row.nickName }}</span>
                   </el-col>
                 </el-row>
@@ -118,13 +118,20 @@
               <div style="font-size: 14px; font-weight:normal;color: #99a9bf;">
                   发布于 {{ row.createTime.substring(0,10) }}
               </div>
-              <div style="color: #99a9bf;">
+              <div style="color: #99a9bf;margin-left:0px;font-size: 14px; font-weight:normal;color: #99a9bf;">
                 <el-button type="primary" icon="el-icon-caret-top" size="mini" plain>赞同 10</el-button>
-                <a style="margin-left:12px">
+                <a style="margin-left:12px;" @click="commentsDialogVisible = true" v-show="commentsDialogVisible == false">
                   <i class="el-icon-s-comment"></i>
-                  <span style="font-size: 14px; font-weight:normal;color: #99a9bf;">
-                    100条评论
+                  <span v-show="row.comments.length == 0">
+                    添加评论
                   </span>
+                  <span v-show="row.comments.length > 0">
+                    {{row.comments.length}} 条评论
+                  </span>
+                </a>
+                <a style="margin-left:12px;" v-show="commentsDialogVisible == true" @click="commentsDialogVisible = false">
+                  <i class="el-icon-s-comment"></i>
+                  收起评论
                 </a>
                 <a style="margin-left:12px">
                   <i class="el-icon-s-promotion"></i>
@@ -140,6 +147,48 @@
                 </a>
                 <i class="el-icon-more" style="margin-left: 12px;"></i>
               </div>
+              <!--      评论区      -->
+              <el-card class="box-card" v-if="commentsDialogVisible">
+                <div slot="header" style="height: 30px;margin-top: -14px">
+                  {{ row.comments.length }} 条评论
+                  <a>
+                    <span style="float: right;font-size: 13px; font-weight:normal;color: #99a9bf;">
+                      默认排序
+                      <i class="el-icon-d-caret"></i>
+                    </span>
+                  </a>
+                </div>
+                <div v-for="row in row.comments" :key="row.index" class="text item">
+                  <div>
+                    <el-row>
+                      <el-col :span="2" style="height: 50px">
+                        <img :src="row.imgUrl" class="img_tx">
+                      </el-col>
+                      <el-col :span="15" style="margin-top: -8px;margin-left: 20px;font-size: 14px;">
+                        <span>{{ row.nickName }}</span>
+                      </el-col>
+                      <el-col :span="6">
+                        <span style="float: right;margin-top: -12px;font-size: 13px; font-weight:normal;color: #99a9bf;">
+                          {{ row.createTime.substring(0,10) }}
+                        </span>
+                      </el-col>
+                    </el-row>
+                  </div>
+                  <div style="margin-top: -5px;">
+                    <span style="font-size: 14px; font-weight:normal;margin-left: 20px;">
+                      {{ row.answerName }}
+                    </span>
+                  </div>
+                  <div style="margin-top: -17px">
+                    <el-divider></el-divider>
+                  </div>
+                </div>
+                <div>
+                  <el-input placeholder="写下你的评论..." v-model="conmentDO.answerName" class="input-with-select">
+                    <el-button type="info" slot="append" icon="el-icon-success" plain>发布</el-button>
+                  </el-input>
+                </div>
+              </el-card>
               <div style="margin-top: -17px">
                 <el-divider></el-divider>
               </div>
@@ -190,6 +239,7 @@ export default {
   computed: {...mapGetters(['name'])},
   data() {
     return {
+      commentsDialogVisible: false,
       list: [],
       multipleSelection: [],
       questionId: this.$route.query.id,
@@ -198,6 +248,7 @@ export default {
       volumeNumber: 0,
       answerNumber: 0,
       AnswerVO:{},
+      conmentDO:{},
       QuestionDO: {},
       // 富文本框：自定义工具栏
       customToolbar: [
@@ -221,7 +272,6 @@ export default {
     }
   },
   created() {
-    console.log('id',this.$route.query.id)
     /* 调用起始方法 */
     this.fetchList()
   },
@@ -230,7 +280,6 @@ export default {
       getList(this.questionId).then(response => {
         this.QuestionDO = response.data.questionDO
         this.list = response.data.answers
-        console.log('list',this.list)
         this.answerNumber = this.list.length
         this.volumeNumber = response.data.volumeNumber
         this.attentionNumber = response.data.attentionNumber
